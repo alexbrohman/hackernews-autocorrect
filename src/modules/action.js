@@ -4,15 +4,16 @@ const Types = {
     UPDATE_SEARCH: "UPDATE_SEARCH",
 }
 
-const updateSearch = search => ({
+const updateSearch = (searchType, search) => ({
     type: Types.UPDATE_SEARCH,
-    payload: search
+    payload: { searchType, search }
 })
 
 const getAllStories = data => ({
     type: Types.GET_ALL_STORIES,
     payload: data
 })
+
 
 export default {
     updateSearch,

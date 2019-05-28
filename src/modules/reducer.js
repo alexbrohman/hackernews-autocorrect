@@ -3,7 +3,9 @@ import _ from "lodash";
 
 const defaultState = {
     stories: {},
-    search: ''
+    search: {
+        query: '',
+    }
 };
 
 const reducer = (state = defaultState, action) => {
@@ -12,13 +14,18 @@ const reducer = (state = defaultState, action) => {
         case ACTIONS.Types.GET_ALL_STORIES: {
             let newState = _.cloneDeep(state)
             newState.stories = action.payload
-            console.log(newState.stories)
             return newState
         }
 
         case ACTIONS.Types.UPDATE_SEARCH: {
             let newState = _.cloneDeep(state)
-            newState.search = action.payload
+            newState.search[action.payload.searchType] = action.payload.search
+            return newState
+        }
+
+        case ACTIONS.Types.CLEAR_SEARCH: {
+            let newState = _.cloneDeep(state)
+            newState.search = defaultState.search
             return newState
         }
 
