@@ -40,14 +40,13 @@ class Home extends Component {
     }
 
     async searchAPI() {
-        console.log(this.queryString)
         let searchResults = await API.get(this.queryString)
-        console.log(searchResults)
+        this.props.getAllStories(searchResults.data)
     }
 
     nextPage() {
         console.log('next')
-        // this.searchAPI()
+
     }
 
     prevPage() {
@@ -58,9 +57,9 @@ class Home extends Component {
         console.log('changing page')
     }
 
-    updateSearchVal(e) {
+    updateSearchVal(searchType, e) {
         e.persist()
-        this.props.updateSearch('query', e.target.value)
+        this.props.updateSearch(searchType, e.target.value)
         this.delayedUpdate()
     }
 
@@ -69,10 +68,11 @@ class Home extends Component {
     render() {
         return (
             <div className="content-wrapper">
-                <Header onKeyUp={this.updateSearchVal} />
-                {this.props.stories.hits ? <Results stories={this.props.stories.hits} /> : ''}
+                <Header onKeyUp={(e) => this.updateSearchVal('query', e)} />
+                {this.props.stories.hits ?
+                    <Results stories={this.props.stories.hits} /> : ''}
 
-                {this.props.stories ?
+                {this.props.stories.page ?
                     <div className="pagination">
                         <button onClick={this.prevPage}>PREVIOUS</button>
                         <p>PAGE: {this.props.stories.page + 1} of {this.props.stories.nbPages}</p>
