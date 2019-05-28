@@ -1,10 +1,13 @@
 
 const Types = {
-    CREATE_ITEM: "CREATE_ITEM",
-    DELETE_ITEM: "DELETE_ITEM",
-    GET_ALL_STORIES: "GET_ALL_STORIES"
-
+    GET_ALL_STORIES: "GET_ALL_STORIES",
+    UPDATE_SEARCH: "UPDATE_SEARCH",
 }
+
+const updateSearch = search => ({
+    type: Types.UPDATE_SEARCH,
+    payload: search
+})
 
 const getAllStories = data => ({
     type: Types.GET_ALL_STORIES,
@@ -12,6 +15,7 @@ const getAllStories = data => ({
 })
 
 export default {
+    updateSearch,
     getAllStories,
     Types
 };

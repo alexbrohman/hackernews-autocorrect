@@ -1,7 +1,6 @@
 import { createStore } from "redux";
-
 // Logger with default options
-import logger from "redux-logger";
+// import logger from "redux-logger";
 
 import reducer from "./reducer";
 
