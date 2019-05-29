@@ -45,9 +45,10 @@ li.result {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: solid 1px;
   margin-bottom: 5px;
   padding: 10px;
+  border: solid 1px #E6E6E6;
+  border-radius: 4px;
 }
 
 .result-points {
@@ -55,6 +56,17 @@ li.result {
   flex: 2;
   padding: 2%;
   text-align: center;
+}
+
+.result-points-circle {
+  display: block;
+  width: 40px;
+  background: #BBBBBB;
+  color: white;
+  font-weight: bold;
+  height: 30px;
+  padding-top: 10px;
+  border-radius: 50%;
 }
 .result-title {
   flex: 10;

@@ -9,7 +9,11 @@ class Results extends Component {
                     {this.props.stories.length ?
                         this.props.stories.map((story, key) =>
                             <li className="result" key={key}>
-                                <div className="result-points">{story.points}</div>
+                                <div className="result-points">
+                                    <div className="result-points-circle">
+                                        {story.points}
+                                    </div>
+                                </div>
                                 <div className="result-title">
                                     <h3>{story.title}</h3>
                                 </div>
