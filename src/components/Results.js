@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import extractDomain from 'extract-domain'
+import Moment from 'react-moment';
+
 class Results extends Component {
     render() {
         return (
@@ -15,7 +17,11 @@ class Results extends Component {
                                 </div>
                                 <div className="result-title">
                                     <h3>{story.title}</h3>
-                                    <span className="result-date">{story.created_at}</span>
+                                    <span className="result-date">
+                                        <Moment format="dddd, MMMM Do YYYY">
+                                            {story.created_at}
+                                        </Moment>
+                                    </span>
                                 </div>
                                 <a className="result-url" rel="noopener noreferrer" target="_blank" href={story.url}>
                                     {story.url ? extractDomain(story.url) : ''}

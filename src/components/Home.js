@@ -21,6 +21,10 @@ const mapDispatchToProps = dispatch => ({
 class Home extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            searchType: 'search'
+        }
+
         this.delayedUpdate = _.debounce(this.searchAPI, 1000)
 
         this.updateSearchVal = this.updateSearchVal.bind(this)
