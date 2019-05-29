@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import ACTIONS from "../modules/action"
 import API from '../utils/API'
 import _ from "lodash"
+import Pagination from "./Pagination";
 
 const mapStateToProps = state => ({
     stories: state.stories,
@@ -71,14 +72,15 @@ class Home extends Component {
             <div className="content-wrapper">
                 <Header onKeyUp={(e) => this.updateSearchVal('query', e)} />
                 {this.props.stories.hits ?
-                    <Results stories={this.props.stories.hits} /> : ''}
-
+                    <Results stories={this.props.stories.hits} /> : ''
+                }
                 {!isNaN(this.props.stories.page) ?
-                    <div className="pagination">
-                        <button onClick={this.prevPage}>PREVIOUS</button>
-                        <p>PAGE: {this.props.stories.page + 1} of {this.props.stories.nbPages}</p>
-                        <button onClick={this.nextPage}>NEXT</button>
-                    </div>
+                    <Pagination
+                        page={this.props.stories.page}
+                        nbPages={this.props.stories.nbPages}
+                        prevPage={this.prevPage}
+                        nextPage={this.nextPage}
+                    />
                     : ''}
             </div>
         )
