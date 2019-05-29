@@ -153,10 +153,10 @@ html, body {
   background: #BBBBBB;
   color: white;
   font-weight: bold;
-  height: 30px;
-  padding-top: 10px;
+  height: 28px;
+  padding-top: 11px;
   border-radius: 50%;
-  font-size: 14px;
+  font-size: 12px;
 }
 .result-title {
   flex: 10;
