@@ -31,3 +31,39 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Results */
+ul.results-list {
+  width: 95%;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 800px;
+}
+
+li.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.result-points {
+  display: block;
+  flex: 2;
+  padding: 2%;
+  text-align: center;
+}
+.result-title {
+  flex: 10;
+}
+
+.result-url {
+  flex: 1;
+  font-size: 12px;
+}
+/* 
+result-title
+result-url */
