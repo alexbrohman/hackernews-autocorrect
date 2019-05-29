@@ -24,7 +24,6 @@ class Home extends Component {
         this.updateSearchVal = this.updateSearchVal.bind(this)
         this.nextPage = this.nextPage.bind(this)
         this.prevPage = this.prevPage.bind(this)
-        this.changePage = this.changePage.bind(this)
         this.stringify = this.stringify.bind(this)
     }
 
