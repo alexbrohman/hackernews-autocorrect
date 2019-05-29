@@ -15,9 +15,10 @@ class Results extends Component {
                                 </div>
                                 <div className="result-title">
                                     <h3>{story.title}</h3>
+                                    <span className="result-date">{story.created_at}</span>
                                 </div>
                                 <a className="result-url" rel="noopener noreferrer" target="_blank" href={story.url}>
-                                    {story.url ? extractDomain(story.url) : 'No URL'}
+                                    {story.url ? extractDomain(story.url) : ''}
                                 </a>
                             </li>
                         )

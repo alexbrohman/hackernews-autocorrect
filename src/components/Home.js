@@ -37,7 +37,11 @@ class Home extends Component {
         return queryString + "&tags=story"
     }
 
-    async searchAPI(search) {
+    async searchAPI(search, searchType) {
+        if (!searchType) {
+            searchType = "search"
+        }
+
         let queryString;
 
         if (search) {
@@ -46,12 +50,8 @@ class Home extends Component {
             queryString = this.stringify(this.props.search)
         }
 
-        let searchResults = await API.get(queryString)
+        let searchResults = await API.get(searchType + queryString)
         this.props.getAllStories(searchResults.data)
-    }
-
-    sortResults() {
-        console.log('sorting!')
     }
 
     nextPage() {
@@ -73,7 +73,13 @@ class Home extends Component {
     }
 
     sortDate() {
-        console.log('sorting date')
+        if (this.state.searchBy === 'date') {
+            this.searchAPI(this.props.search)
+            // this.setState({ searchBy: 'date' })
+        } else {
+            // this.setState({ searchBy: 'search' })
+            this.searchAPI(this.props.search, "search_by_date")
+        }
     }
 
     sortScore() {

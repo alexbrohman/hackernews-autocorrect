@@ -3,32 +3,6 @@ html, body {
     overflow: hidden;
 }
 
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -116,12 +90,10 @@ html, body {
 
 /* Results */
 #results {
-  top: 180px;
+  top: 150px;
   position: relative;
   padding-bottom: 50px;
 }
-
-
 
 .results-list {
   width: 95%;
@@ -139,6 +111,7 @@ html, body {
   border: solid 1px #E6E6E6;
   border-radius: 4px;
   background: white;
+  position: relative;
 }
 
 .result-points {
@@ -164,12 +137,26 @@ html, body {
 
 .result-title h3 {
   font-size: 16px;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+
+.result-date {
+    color: #636363;
+    font-size: 12px;
+}
+
+.result-domain {
+  flex: 1;
+  font-size: 12px;
+  color: #636363;
 }
 
 .result-url {
-  flex: 1;
-  font-size: 12px;
+    font-size: 12px;
+    color: #636363;
 }
+
  /* Footer */
 .footer {
   background: #E6E6E6;
