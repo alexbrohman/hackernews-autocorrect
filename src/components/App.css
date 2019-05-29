@@ -1,3 +1,9 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+
 .App {
   text-align: center;
 }
@@ -32,16 +38,84 @@
   }
 }
 
+/* SEARCH */
+#search {
+  position: fixed;
+  top: 0;
+  background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2565&q=80');
+  background-color: black;
+  background-color: rgba(0,0,0,.4);
+  background-blend-mode: overlay;
+  background-size: cover;
+  width: 100%;
+  z-index: 1;
+}
+
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap h1 {
+  margin: 0;
+  color: white;
+  text-align: center;
+  font-size: 40px;
+  margin: 10px 0;
+}
+
+.search-bar {
+  background: white;
+  display: flex;
+  align-items: center;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
+  flex-wrap: wrap;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.search-bar input[type="text"]{
+  flex: 4 1;
+  height: 30px;
+  font-size: 16px;
+  border: none;
+}
+
+.search-bar-settings-button {
+  flex: 1
+}
+
+.search-bar-settings {
+  background: lightgray;
+  width: 100%;
+  margin: 0 -5px;
+  padding: 5px;
+}
+
+/* Home */
+#content-wrapper {
+  height: 100vh;
+  overflow: scroll;
+}
 
 /* Results */
-ul.results-list {
+#results {
+  top: 180px;
+  position: relative;
+  padding-bottom: 50px;
+}
+
+
+
+.results-list {
   width: 95%;
   margin: 0 auto;
   padding: 0;
   max-width: 800px;
 }
 
-li.result {
+.result {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,7 +128,6 @@ li.result {
 .result-points {
   display: block;
   flex: 2;
-  padding: 2%;
   text-align: center;
 }
 
@@ -72,10 +145,57 @@ li.result {
   flex: 10;
 }
 
+.result-title h3 {
+  font-size: 16px;
+}
+
 .result-url {
   flex: 1;
   font-size: 12px;
 }
-/* 
-result-title
-result-url */
+ /* Footer */
+.footer {
+  background: #E6E6E6;
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+}
+/* pagination */
+.pagination {
+  display: flex;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+}
+
+.pagination p {
+  color: #636363;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.pagination button {
+  border: none;
+  font-size: 14px;
+  padding: 10px;
+  color: white;
+  border-radius: 3px;
+  font-weight: bold;
+  background: gray;
+}
+
+.pagination button:focus {
+  outline: none;
+}
+
+.pagination button.prev {
+  background: #4EAA80;
+}
+
+.pagination button.next {
+  background: #1E4533;
+}

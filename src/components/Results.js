@@ -4,7 +4,7 @@ import extractDomain from 'extract-domain'
 class Results extends Component {
     render() {
         return (
-            <section className="results">
+            <section id="results">
                 <ul className="results-list">
                     {this.props.stories.length ?
                         this.props.stories.map((story, key) =>

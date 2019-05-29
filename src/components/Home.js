@@ -6,6 +6,7 @@ import ACTIONS from "../modules/action"
 import API from '../utils/API'
 import _ from "lodash"
 import Pagination from "./Pagination";
+import Footer from "./Footer";
 
 const mapStateToProps = state => ({
     stories: state.stories,
@@ -31,7 +32,7 @@ class Home extends Component {
     stringify(search) {
         let queryString = '?' + Object.keys(search).map(key => key + '=' + search[key]).join('&');
         queryString = queryString.replace(/ /g, '%20')
-        return queryString
+        return queryString + "&tags=story"
     }
 
     async searchAPI(search) {
@@ -48,15 +49,21 @@ class Home extends Component {
     }
 
     nextPage() {
-        let search = this.props.search
-        search.page = this.props.stories.page + 1
-        this.searchAPI(search)
+        if (this.props.stories.page < this.props.stories.nbPages) {
+            let search = this.props.search
+            search.page = this.props.stories.page + 1
+            this.searchAPI(search)
+            document.getElementById('content-wrapper').scrollTop = 0
+        }
     }
 
     prevPage() {
-        let search = this.props.search
-        search.page = this.props.stories.page - 1
-        this.searchAPI(search)
+        if (this.props.stories.page > 0) {
+            let search = this.props.search
+            search.page = this.props.stories.page - 1
+            this.searchAPI(search)
+            document.getElementById('content-wrapper').scrollTop = 0
+        }
     }
 
     updateSearchVal(queryType, e) {
@@ -69,19 +76,21 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="content-wrapper">
+            <div id="content-wrapper">
                 <Header onKeyUp={(e) => this.updateSearchVal('query', e)} />
                 {this.props.stories.hits ?
                     <Results stories={this.props.stories.hits} /> : ''
                 }
-                {!isNaN(this.props.stories.page) ?
-                    <Pagination
-                        page={this.props.stories.page}
-                        nbPages={this.props.stories.nbPages}
-                        prevPage={this.prevPage}
-                        nextPage={this.nextPage}
-                    />
-                    : ''}
+                <Footer>
+                    {!isNaN(this.props.stories.page) ?
+                        <Pagination
+                            page={this.props.stories.page}
+                            nbPages={this.props.stories.nbPages}
+                            prevPage={this.prevPage}
+                            nextPage={this.nextPage}
+                        />
+                        : ''}
+                </Footer>
             </div>
         )
     }
