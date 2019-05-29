@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getAllStories: data => dispatch(ACTIONS.getAllStories(data)),
-    updateSearch: (searchType, search) => dispatch(ACTIONS.updateSearch(searchType, search)),
+    updateSearch: (searchType, search) => dispatch(ACTIONS.updateSearch(searchType, search))
 })
 
 class Home extends Component {
@@ -25,41 +25,43 @@ class Home extends Component {
         this.nextPage = this.nextPage.bind(this)
         this.prevPage = this.prevPage.bind(this)
         this.changePage = this.changePage.bind(this)
+        this.stringify = this.stringify.bind(this)
     }
 
-    // async componentDidMount() {
-    //     let latestStories = await API.get(searchTypes.latest)
-    //     this.props.getAllStories(latestStories.data)
-    // }
-
-    get queryString() {
-        let searchObj = this.props.search
-        let queryString = '?' + Object.keys(searchObj).map(key => key + '=' + searchObj[key]).join('&');
+    stringify(search) {
+        let queryString = '?' + Object.keys(search).map(key => key + '=' + search[key]).join('&');
         queryString = queryString.replace(/ /g, '%20')
         return queryString
     }
 
-    async searchAPI() {
-        let searchResults = await API.get(this.queryString)
+    async searchAPI(search) {
+        let queryString;
+
+        if (search) {
+            queryString = this.stringify(search)
+        } else {
+            queryString = this.stringify(this.props.search)
+        }
+
+        let searchResults = await API.get(queryString)
         this.props.getAllStories(searchResults.data)
     }
 
     nextPage() {
-        console.log('next')
-
+        let search = this.props.search
+        search.page = this.props.stories.page + 1
+        this.searchAPI(search)
     }
 
     prevPage() {
-        console.log('prev')
+        let search = this.props.search
+        search.page = this.props.stories.page - 1
+        this.searchAPI(search)
     }
 
-    async changePage() {
-        console.log('changing page')
-    }
-
-    updateSearchVal(searchType, e) {
+    updateSearchVal(queryType, e) {
         e.persist()
-        this.props.updateSearch(searchType, e.target.value)
+        this.props.updateSearch(queryType, e.target.value)
         this.delayedUpdate()
     }
 
@@ -72,7 +74,7 @@ class Home extends Component {
                 {this.props.stories.hits ?
                     <Results stories={this.props.stories.hits} /> : ''}
 
-                {this.props.stories.page ?
+                {!isNaN(this.props.stories.page) ?
                     <div className="pagination">
                         <button onClick={this.prevPage}>PREVIOUS</button>
                         <p>PAGE: {this.props.stories.page + 1} of {this.props.stories.nbPages}</p>
