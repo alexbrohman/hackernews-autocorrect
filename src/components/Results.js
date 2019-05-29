@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import extractDomain from 'extract-domain'
-
 class Results extends Component {
     render() {
         return (
@@ -22,9 +21,7 @@ class Results extends Component {
                                 </a>
                             </li>
                         )
-                        :
-                        <p>Loading Stories</p>
-                    }
+                        : ''}
                 </ul>
             </section>
         )

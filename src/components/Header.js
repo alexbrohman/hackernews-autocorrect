@@ -1,4 +1,5 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
+import cog from '../settings-work-tool.svg'
 
 class Header extends Component {
     constructor(props) {
@@ -21,10 +22,14 @@ class Header extends Component {
                     <h1>HACKER NEWS SEARCH</h1>
                     <div className="search-bar">
                         <input type="text" onKeyUp={this.props.onKeyUp} />
-                        <div onClick={this.toggleSearchSettings} className="search-bar-settings-button">TOGGLE</div>
+                        <div onClick={this.toggleSearchSettings} className="search-bar-settings-button">
+                            <img width={'30px'} src={cog} alt="cog" />
+                        </div>
                         {this.state.showMenu ?
                             <div className="search-bar-settings">
-                                Settings here
+                                <span className="sort-title">Sort:</span>
+                                <span onClick={this.props.sortDate} className="sort-option">Date</span>
+                                <span onClick={this.props.sortScore} className="sort-option">Score</span>
                             </div>
                             : ''}
                     </div>
@@ -35,5 +40,3 @@ class Header extends Component {
 }
 
 export default Header
-
-

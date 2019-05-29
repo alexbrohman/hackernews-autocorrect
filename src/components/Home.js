@@ -27,6 +27,8 @@ class Home extends Component {
         this.nextPage = this.nextPage.bind(this)
         this.prevPage = this.prevPage.bind(this)
         this.stringify = this.stringify.bind(this)
+        this.sortDate = this.sortDate.bind(this)
+        this.sortScore = this.sortScore.bind(this)
     }
 
     stringify(search) {
@@ -48,6 +50,10 @@ class Home extends Component {
         this.props.getAllStories(searchResults.data)
     }
 
+    sortResults() {
+        console.log('sorting!')
+    }
+
     nextPage() {
         if (this.props.stories.page < this.props.stories.nbPages) {
             let search = this.props.search
@@ -66,10 +72,22 @@ class Home extends Component {
         }
     }
 
+    sortDate() {
+        console.log('sorting date')
+    }
+
+    sortScore() {
+        console.log('sorting score')
+    }
+
     updateSearchVal(queryType, e) {
         e.persist()
         this.props.updateSearch(queryType, e.target.value)
         this.delayedUpdate()
+    }
+
+    componentDidMount() {
+        this.searchAPI('')
     }
 
     /* hitsPerPage,nbHits, nbPages, page, */
@@ -77,7 +95,11 @@ class Home extends Component {
     render() {
         return (
             <div id="content-wrapper">
-                <Header onKeyUp={(e) => this.updateSearchVal('query', e)} />
+                <Header
+                    onKeyUp={(e) => this.updateSearchVal('query', e)}
+                    sortDate={this.sortDate}
+                    sortScore={this.sortScore}
+                />
                 {this.props.stories.hits ?
                     <Results stories={this.props.stories.hits} /> : ''
                 }
