@@ -1,6 +1,12 @@
 html, body {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
+  background: #fbfbfb;
+}
+
+input:active,
+input:focus {
+  outline: none;
 }
 
 @keyframes App-logo-spin {
@@ -16,6 +22,7 @@ html, body {
 #search {
   position: fixed;
   top: 0;
+  background-color: #1e4533;;
   background-image: url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2565&q=80');
   background-color: black;
   background-color: rgba(0,0,0,.4);
@@ -63,12 +70,15 @@ html, body {
 }
 
 .search-bar-settings {
-  background: lightgray;
+  background: #e6e6e6;
   width: 100%;
   margin: 0 -5px -5px;
   padding: 10px;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .sort-title {
@@ -79,7 +89,20 @@ html, body {
 
 .sort-option {
   margin-right: 10px;
-  color: #636363
+  color: #636363;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.sort-option.selected {
+    background: #4eaa80;
+    color: white;
+}
+
+.cancel {
+  cursor: pointer;
 }
 
 /* Home */
@@ -90,7 +113,7 @@ html, body {
 
 /* Results */
 #results {
-  top: 150px;
+  top: 190px;
   position: relative;
   padding-bottom: 50px;
 }
@@ -100,6 +123,10 @@ html, body {
   margin: 0 auto;
   padding: 0;
   max-width: 800px;
+}
+
+.results-list.typing {
+    opacity: .3;
 }
 
 .result {
@@ -118,6 +145,7 @@ html, body {
   display: block;
   flex: 2;
   text-align: center;
+  max-width: 75px;
 }
 
 .result-points-circle {
@@ -157,6 +185,13 @@ html, body {
     color: #636363;
 }
 
+.nothing-found {
+    text-align: center;
+    color: #636363;
+    font-weight: bold;
+    font-size: 26px;
+}
+
  /* Footer */
 .footer {
   background: #E6E6E6;
@@ -192,6 +227,8 @@ html, body {
   border-radius: 3px;
   font-weight: bold;
   background: gray;
+  width: 120px;
+  cursor: pointer;
 }
 
 .pagination button:focus {

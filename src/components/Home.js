@@ -1,12 +1,13 @@
-import React, { Component } from "react"
+import React, { Component } from 'react'
 import Header from './Header'
 import Results from './Results'
-import { connect } from "react-redux"
-import ACTIONS from "../modules/action"
+import { connect } from 'react-redux'
+import ACTIONS from '../modules/action'
 import API from '../utils/API'
-import _ from "lodash"
-import Pagination from "./Pagination";
-import Footer from "./Footer";
+import _ from 'lodash'
+import Pagination from './Pagination'
+import Footer from './Footer'
+import moment from 'moment'
 
 const mapStateToProps = state => ({
     stories: state.stories,
@@ -15,14 +16,17 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getAllStories: data => dispatch(ACTIONS.getAllStories(data)),
-    updateSearch: (searchType, search) => dispatch(ACTIONS.updateSearch(searchType, search))
+    updateSearch: (searchType, search) => dispatch(ACTIONS.updateSearch(searchType, search)),
+    clearSearch: () => dispatch(ACTIONS.clearSearch())
 })
 
 class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            searchType: 'search'
+            searchType: 'search',
+            selectedDate: null,
+            typing: false
         }
 
         this.delayedUpdate = _.debounce(this.searchAPI, 1000)
@@ -32,18 +36,25 @@ class Home extends Component {
         this.prevPage = this.prevPage.bind(this)
         this.stringify = this.stringify.bind(this)
         this.sortDate = this.sortDate.bind(this)
-        this.sortScore = this.sortScore.bind(this)
+        this.cancelSortDate = this.cancelSortDate.bind(this)
+        this.cancelSearch = this.cancelSearch.bind(this)
     }
 
     stringify(search) {
         let queryString = '?' + Object.keys(search).map(key => key + '=' + search[key]).join('&');
         queryString = queryString.replace(/ /g, '%20')
-        return queryString + "&tags=story"
+        return queryString + '&tags=story'
     }
 
     async searchAPI(search, searchType) {
+        if (this.state.typing) {
+            this.setState({
+                typing: false
+            })
+        }
+
         if (!searchType) {
-            searchType = "search"
+            searchType = 'search'
         }
 
         let queryString;
@@ -76,21 +87,40 @@ class Home extends Component {
         }
     }
 
-    sortDate() {
-        if (this.state.searchBy === 'date') {
-            this.searchAPI(this.props.search)
-            // this.setState({ searchBy: 'date' })
-        } else {
-            // this.setState({ searchBy: 'search' })
-            this.searchAPI(this.props.search, "search_by_date")
+    sortDate(days) {
+        let today = 'created_at_i <' + moment().unix()
+        let pastDays = 'created_at_i>' + moment().subtract(days, 'days').unix()
+
+        let search = this.props.search
+
+        search.numericFilters = pastDays + ',' + today
+        this.setState({
+            selectedDate: days
+        })
+        this.searchAPI(search)
+    }
+
+    cancelSortDate() {
+        let search = this.props.search
+        if (search.numericFilters) {
+            delete (search.numericFilters)
+            this.searchAPI(search)
+            this.setState({ selectedDate: null })
         }
     }
 
-    sortScore() {
-        console.log('sorting score')
+    cancelSearch() {
+        document.getElementById('search-input').value = ''
+        this.props.clearSearch()
+        this.setState({
+            selectedDate: null,
+            typing: false
+        })
+        this.searchAPI({})
     }
 
     updateSearchVal(queryType, e) {
+        this.setState({ typing: true })
         e.persist()
         this.props.updateSearch(queryType, e.target.value)
         this.delayedUpdate()
@@ -100,18 +130,18 @@ class Home extends Component {
         this.searchAPI('')
     }
 
-    /* hitsPerPage,nbHits, nbPages, page, */
-
     render() {
         return (
-            <div id="content-wrapper">
+            <div id='content-wrapper'>
                 <Header
                     onKeyUp={(e) => this.updateSearchVal('query', e)}
                     sortDate={this.sortDate}
-                    sortScore={this.sortScore}
+                    selectedDate={this.state.selectedDate}
+                    cancelSortDate={this.cancelSortDate}
+                    cancelSearch={this.cancelSearch}
                 />
                 {this.props.stories.hits ?
-                    <Results stories={this.props.stories.hits} /> : ''
+                    <Results typing={this.state.typing} stories={this.props.stories.hits} /> : ''
                 }
                 <Footer>
                     {!isNaN(this.props.stories.page) ?
