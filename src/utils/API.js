@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL: "http://hn.algolia.com/api/v1/",
+    baseURL: "https://hn.algolia.com/api/v1/",
     responseType: "json"
 });
