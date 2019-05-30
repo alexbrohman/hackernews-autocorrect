@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/hackernews-autosearch/precache-manifest.f761c9949c8237f9d6f90c675ef511a2.js"
+  "/hackernews-autosearch/precache-manifest.296118efa2690a7c6fd2eb9c36f3af58.js"
 );
 
 self.addEventListener('message', (event) => {
