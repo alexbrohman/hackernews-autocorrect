@@ -139,6 +139,18 @@ input:focus {
   border-radius: 4px;
   background: white;
   position: relative;
+  color: #191919;
+  text-decoration: none;
+}
+
+.result:hover {
+    border: solid 1px #1e4533;
+    background: rgba(78, 170, 128, .3);
+    transition: .2s;
+}
+
+.result:hover h3 {
+  text-decoration: underline
 }
 
 .result-points {
@@ -151,7 +163,7 @@ input:focus {
 .result-points-circle {
   display: block;
   width: 40px;
-  background: #BBBBBB;
+  background: #1e4533;
   color: white;
   font-weight: bold;
   height: 28px;
