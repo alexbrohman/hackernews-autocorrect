@@ -4,7 +4,7 @@ const TimeButton = ({ sortDate, days, selectedDate }) => {
     return (
         <span className={`sort-option ${selectedDate === days ? 'selected' : ''}`}
             onClick={() => sortDate(days)}>
-            {days == 1 ?
+            {days === 1 ?
                 <span>24 Hours</span> :
                 <span>Last {days} Days</span>
             }
@@ -13,10 +13,6 @@ const TimeButton = ({ sortDate, days, selectedDate }) => {
 }
 
 class Header extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <section id='search'>
@@ -25,7 +21,7 @@ class Header extends Component {
                     <div className='search-bar'>
                         <input id='search-input' type='text' onKeyUp={this.props.onKeyUp} />
                         <span className='cancel' onClick={this.props.cancelSearch}>
-                            <img src='https://img.icons8.com/metro/26/000000/multiply.png'></img>
+                            <img alt='clear search X' src='https://img.icons8.com/metro/26/000000/multiply.png'></img>
                         </span>
 
                         <div className='search-bar-settings'>
